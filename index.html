@@ -3,436 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Problem Statement R&D Report | aether think. – Project KiWI</title>
+    <title>aether think. - Project KiWI: The Crisis & The Opportunity</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Loading both Inter (for body) and League Spartan (for logo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=League+Spartan:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
+        /* Custom styles for the pitch deck aesthetic - SWITCHED TO LIGHT THEME */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
-            color: #073B4C;
+            background-color: white; /* Light Primary Background */
+            color: #1A1A1A; /* Dark Text */
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 320px;
-            max-height: 400px;
+        /* New utility classes based on the requested light theme change */
+        .bg-light-primary { background-color: white; }
+        .bg-light-secondary { background-color: #f9fafb; } /* Very Light Gray for sections/cards (Tailwind gray-50) */
+        .bg-light-tertiary { background-color: #e5e7eb; } /* Light Gray for internal blocks/dividers (Tailwind gray-200) */
+
+        .hero-gradient {
+            /* Using a subtle light gradient for the hero */
+            background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
+        .accent-color {
+            color: #8CA11A; /* Olive Green - KEPT */
         }
-        .stat-card {
-            background-color: #ffffff;
-            border-radius: 0.75rem;
-            padding: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            text-align: center;
+        .bg-accent {
+            background-color: #8CA11A;
+            color: white; /* Text color contrasting the accent */
         }
-        .stat-number {
-            font-size: 4rem;
-            font-weight: 700;
-            line-height: 1;
-            color: #118AB2;
+        /* Overriding text color for button to be dark for contrast against light accent background */
+        .bg-accent .text-dark-primary {
+            color: #1A1A1A;
         }
-        .stat-label {
-            font-size: 1.125rem;
-            margin-top: 0.5rem;
-            color: #073B4C;
-            font-weight: 600;
+
+        .data-card {
+            /* Updated shadow color to match the accent, visible on light background */
+            box-shadow: 0 4px 6px -1px rgba(140, 161, 26, 0.1), 0 2px 4px -2px rgba(140, 161, 26, 0.06);
+            transition: transform 0.3s ease;
+            border: 1px solid #f3f4f6; /* Subtle border for definition */
         }
-        .flow-chart-node {
-            background-color: #fff;
-            border: 2px solid #118AB2;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            min-width: 120px;
+        .data-card:hover {
+            transform: translateY(-5px);
         }
-        .flow-chart-arrow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FF6B6B;
-            font-weight: bold;
-            font-size: 2rem;
-            margin: 0 0.5rem;
+        /* Pure CSS Chart Styling for Market Loss - Pitch deck style visualization */
+        .chart-bar {
+            background-color: #8CA11A; /* Updated accent color */
+            transition: width 1s ease-out;
+            border-radius: 4px;
+        }
+        .font-spartan {
+            font-family: 'League Spartan', sans-serif; /* KEPT */
         }
     </style>
 </head>
-<body>
 
-    <header class="bg-white shadow-md">
-        <div class="container mx-auto px-6 py-8 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold text-[#073B4C]">The Indian Agrarian Crisis</h1>
-            <p class="mt-4 text-lg md:text-xl text-[#118AB2]">A Data-Driven Analysis of Core Challenges and the Path to a Sustainable Future</p>
-            <p class="mt-4 text-lg md:text-xl text-[#118AB2]">Problem Statement R&D Report | aether think. – Project KiWI</p>
+<body class="antialiased">
+
+    <!-- Header / Navigation (Simple for pitch deck flow) -->
+    <!-- Swapped dark classes for light ones -->
+    <header class="sticky top-0 z-50 p-4 backdrop-blur-sm bg-white/90 border-b border-light-tertiary">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Font changed to League Spartan here -->
+            <h1 class="text-2xl font-black tracking-tighter font-spartan"><span style="color: #01ad26;">aether think.</span></h1>
+            <!-- Text color adjustment for light theme -->
+            <span class="text-sm text-gray-500">Project KiWI | Problem Statement R&D Report</span>
         </div>
     </header>
 
-    <main class="container mx-auto px-6 py-12">
-
-        <section id="overview" class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-8">The Magnitude of the Challenge</h2>
-            <p class="max-w-3xl mx-auto text-center text-lg mb-12">
-                Indian agriculture is a paradox of progress and peril. While being a global powerhouse, millions of farmers are trapped in a vicious cycle of debt and inefficiency. Small mistakes in sowing, forecasting, or selling amplify into catastrophic losses, undermining the backbone of our nation's food security.
+    <!-- 1. HERO SECTION: The Crisis Scale -->
+    <section id="crisis" class="min-h-screen flex items-center justify-center p-8 hero-gradient">
+        <div class="max-w-4xl text-center space-y-8">
+            <!-- Text color adjustment for light theme -->
+            <p class="text-sm font-semibold uppercase tracking-widest text-gray-500">The Problem Statement</p>
+            <h2 class="text-6xl md:text-8xl font-black leading-none tracking-tighter text-gray-900">
+                The <span class="accent-color">Systemic Crisis</span> in Indian Agriculture.
+            </h2>
+            <!-- Text color adjustment for light theme -->
+            <p class="text-xl md:text-2xl text-gray-700">
+                A crisis costing over <strong class="accent-color">₹5.32 lakh crores annually</strong>—approximately <strong class="accent-color">4% of India's GDP.</strong>
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="stat-card">
-                    <div class="stat-number">52%</div>
-                    <div class="stat-label">of Agricultural Households are in Debt</div>
-                    <p class="mt-2 text-sm text-gray-600">The average debt per household stands at a staggering ₹74,121, highlighting a severe financial crisis at the grassroots level.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold text-center mb-4">Breakdown of Farmer Debt Sources</h3>
-                    <div class="chart-container">
-                        <canvas id="debtSourcesChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="sowing" class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-8">The Foundation: Seed Sowing & Soil Health</h2>
-            <p class="max-w-3xl mx-auto text-center text-lg mb-12">
-                The farming cycle begins with sowing, where inefficiencies create a lasting impact. Traditional methods often lead to significant seed wastage and suboptimal plant density, while the promise of precision agriculture remains largely inaccessible due to high costs.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold text-center mb-4">Seed Wastage: Traditional vs. Precision</h3>
-                    <div class="chart-container">
-                        <canvas id="seedWastageChart"></canvas>
-                    </div>
-                     <p class="mt-4 text-center text-sm text-gray-600">Precision sowing can reduce seed wastage by over 70%, directly cutting input costs and improving germination rates for a healthier crop stand.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold text-center mb-4">Barriers to Precision Tech Adoption</h3>
-                    <div class="chart-container">
-                        <canvas id="techAdoptionBarriersChart"></canvas>
-                    </div>
-                    <p class="mt-4 text-center text-sm text-gray-600">High machinery cost is the single largest barrier, preventing small and marginal farmers from accessing yield-optimizing technologies.</p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="knowledge" class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-8">The Information Deficit: Weather & Advisory Gap</h2>
-            <p class="max-w-3xl mx-auto text-center text-lg mb-12">
-                In an era of data, many farmers still rely on anecdotal evidence for critical decisions. The lack of localized, accurate weather forecasts and access to modern agro-advisory services leads to preventable crop damage and misuse of resources like fertilizers and pesticides.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold text-center mb-4">Crop Losses from Extreme Weather Events</h3>
-                    <div class="chart-container">
-                        <canvas id="weatherLossChart"></canvas>
-                    </div>
-                     <p class="mt-4 text-center text-sm text-gray-600">Erratic weather patterns, exacerbated by climate change, consistently cause significant financial losses, wiping out entire seasons of hard work.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold text-center mb-4">Primary Sources of Farming Information</h3>
-                     <div class="chart-container">
-                        <canvas id="infoSourcesChart"></canvas>
-                    </div>
-                     <p class="mt-4 text-center text-sm text-gray-600">A heavy reliance on fellow farmers and input dealers highlights a critical gap in access to scientific, data-backed agricultural extension services.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="market" class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-8">The Market Maze: Selling Platform Crisis</h2>
-             <p class="max-w-3xl mx-auto text-center text-lg mb-12">
-                Reaching the market is one of the biggest hurdles. A complex chain of intermediaries, coupled with inefficiencies in the mandi system, means farmers often receive only a fraction of the price paid by the end consumer. This value erosion is a primary driver of low profitability.
-            </p>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold text-center mb-6">The Farmer's Diminishing Share</h3>
-                    <div class="flex flex-wrap items-center justify-center gap-y-4">
-                        <div class="flow-chart-node">Farmer</div>
-                        <div class="flow-chart-arrow">&rarr;</div>
-                        <div class="flow-chart-node">Local Aggregator</div>
-                        <div class="flow-chart-arrow">&rarr;</div>
-                        <div class="flow-chart-node">Wholesaler (Mandi)</div>
-                        <div class="flow-chart-arrow">&rarr;</div>
-                        <div class="flow-chart-node">Retailer</div>
-                        <div class="flow-chart-arrow">&rarr;</div>
-                        <div class="flow-chart-node">Consumer</div>
-                    </div>
-                    <p class="mt-6 text-center text-sm text-gray-600">Each step in the supply chain adds costs and margins, significantly reducing the price realized by the original producer.</p>
-                </div>
-                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold text-center mb-4">Farmer's Share in Consumer Rupee</h3>
-                     <div class="chart-container">
-                        <canvas id="priceSpreadChart"></canvas>
-                    </div>
-                    <p class="mt-4 text-center text-sm text-gray-600">For key staples, farmers receive less than half of what consumers pay, with the rest captured by intermediaries and logistics.</p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="solution" class="mb-16">
-             <h2 class="text-3xl font-bold text-center mb-8">The Path Forward: A Single, Integrated Platform</h2>
-             <p class="max-w-3xl mx-auto text-center text-lg mb-12">
-                The fragmented nature of the challenges demands a unified solution. A single digital platform that integrates soil testing, hyper-local weather data, quality seed information, transparent market prices, and expert advisory can empower farmers to make informed decisions at every stage of the agricultural lifecycle.
-            </p>
-            <div class="bg-white rounded-lg shadow-md p-8">
-                <div class="flex flex-wrap justify-center items-center gap-8">
-                    <div class="text-center p-4 border-2 border-dashed border-[#06D6A0] rounded-lg">
-                        <div class="text-4xl">🌦️</div>
-                        <h4 class="font-bold mt-2">Weather Prediction</h4>
-                    </div>
-                    <div class="text-center p-4 border-2 border-dashed border-[#FFD166] rounded-lg">
-                        <div class="text-4xl">🔬</div>
-                        <h4 class="font-bold mt-2">Soil Analysis</h4>
-                    </div>
-                     <div class="text-center p-6 bg-[#118AB2] text-white rounded-full shadow-lg">
-                        <div class="text-3xl">👨‍🌾</div>
-                        <h3 class="font-bold text-xl">Integrated Farmer Platform</h3>
-                    </div>
-                    <div class="text-center p-4 border-2 border-dashed border-[#FF6B6B] rounded-lg">
-                        <div class="text-4xl">🛒</div>
-                        <h4 class="font-bold mt-2">Market Linkages</h4>
-                    </div>
-                    <div class="text-center p-4 border-2 border-dashed border-[#073B4C] rounded-lg">
-                        <div class="text-4xl">📚</div>
-                        <h4 class="font-bold mt-2">Knowledge & Advisory</h4>
-                    </div>
-                </div>
-                <p class="mt-8 text-center text-lg">By breaking down information silos and connecting disparate services, such a platform can directly address the core pain points, enhancing productivity, reducing costs, and improving profitability for millions.</p>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-white mt-16">
-        <div class="container mx-auto px-6 py-4 text-center text-gray-600">
-            <p>&copy; 2025 aether think. Project KiWI</p>
+            <!-- Text color is now white on accent background (due to .bg-accent CSS change) -->
+            <a href="#breakdown" class="inline-block mt-8 px-8 py-3 bg-accent text-dark-primary font-bold rounded-full shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
+                Deep Dive: Systemic Failures
+            </a>
         </div>
+    </section>
+
+    <!-- 2. CRITICAL FINDING & HUMAN TOLL -->
+    <!-- Swapped bg-dark-primary to bg-light-primary -->
+    <section id="breakdown" class="py-20 md:py-32 px-8 bg-light-primary">
+        <div class="max-w-7xl mx-auto space-y-16">
+            <div class="text-center">
+                <h3 class="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900">CRITICAL FINDING</h3>
+                <!-- Text color adjustment for light theme -->
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    The agricultural crisis is not isolated problems but a **tightly interconnected web** where small climatic deviations trigger devastating debt cycles and income capture by middlemen.
+                </p>
+            </div>
+
+            <!-- Infographic: The Human Toll & Debt Nexus -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Swapped bg-dark-secondary to bg-light-secondary -->
+                <div class="data-card p-6 bg-light-secondary rounded-xl space-y-4 border-t-4 border-red-500">
+                    <p class="text-5xl font-black accent-color">52%</p>
+                    <h4 class="text-lg font-semibold text-gray-900">Households in Debt</h4>
+                    <p class="text-gray-600">~75 million households nationwide are indebted, often exceeding annual income.</p>
+                </div>
+                <!-- Swapped bg-dark-secondary to bg-light-secondary -->
+                <div class="data-card p-6 bg-light-secondary rounded-xl space-y-4 border-t-4 border-red-500">
+                    <p class="text-5xl font-black accent-color">₹74,121</p>
+                    <h4 class="text-lg font-semibold text-gray-900">Average Debt Per Household</h4>
+                    <p class="text-gray-600">A 489% increase since 2003, with formal credit systems transferring 100% of risk to the borrower.</p>
+                </div>
+                <!-- Swapped bg-dark-secondary to bg-light-secondary -->
+                <div class="data-card p-6 bg-light-secondary rounded-xl space-y-4 border-t-4 border-red-500">
+                    <p class="text-5xl font-black accent-color">11,290</p>
+                    <h4 class="text-lg font-semibold text-gray-900">Annual Farmer Suicides</h4>
+                    <p class="text-gray-600">One death per hour in 2022, highlighting the severe psychological and financial toll.</p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 3. SYSTEMIC FAILURE: MARKET & LOSSES -->
+    <!-- Swapped bg-dark-secondary to bg-light-secondary -->
+    <section id="exploitation" class="py-20 md:py-32 px-8 bg-light-secondary">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <h3 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900">SYSTEMIC FAILURE: Value Extraction</h3>
+            <!-- Text color adjustment for light theme -->
+            <p class="text-xl text-gray-700 max-w-4xl mx-auto">
+                The Market Exploitation Crisis: Farmers capture a tiny fraction of the final consumer price, while massive post-harvest losses are left unaddressed.
+            </p>
+
+            <!-- Interactive Visualization Block (Pure CSS/HTML Bar Chart for Pitch Impact) -->
+            <!-- Swapped bg-dark-primary to bg-light-primary -->
+            <div class="bg-light-primary p-8 rounded-xl data-card">
+                <!-- Text color adjustment for light theme -->
+                <h4 class="text-2xl font-bold mb-6 text-gray-900">The Price Spread Disparity</h4>
+                
+                <div class="space-y-6">
+                    <!-- Farmer Share -->
+                    <div class="flex items-center space-x-4">
+                        <div class="w-24 text-right text-sm font-semibold text-gray-800">FARMER SHARE:</div>
+                        <!-- Swapped bg-dark-tertiary to bg-light-tertiary -->
+                        <div class="flex-grow bg-light-tertiary h-8 rounded-lg overflow-hidden">
+                            <div class="chart-bar h-full w-[30%] flex items-center justify-end pr-2">
+                                <span class="text-xs font-bold text-white">20-37%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Middlemen/Logistics/Retail -->
+                    <div class="flex items-center space-x-4">
+                        <div class="w-24 text-right text-sm font-semibold text-gray-800">MIDDLEMEN:</div>
+                        <!-- Swapped bg-dark-tertiary to bg-light-tertiary -->
+                        <div class="flex-grow bg-light-tertiary h-8 rounded-lg overflow-hidden">
+                            <!-- Text color is already dark, which is good for the red background -->
+                            <div class="chart-bar h-full w-[70%] flex items-center justify-end pr-2" style="background-color: #fca5a5;">
+                                <span class="text-xs font-bold text-slate-900">63-80% Capture</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Swapped bg-dark-tertiary/50 to bg-light-tertiary -->
+                    <div class="p-5 bg-light-tertiary rounded-lg">
+                        <!-- Text color adjustment for light theme -->
+                        <p class="text-sm font-semibold uppercase text-gray-600">Annual Post-Harvest Loss</p>
+                        <p class="text-3xl font-black accent-color">₹92,651 Crores</p>
+                        <p class="text-sm text-gray-600">Equivalent to 0.6% of national GDP lost annually to inefficiency.</p>
+                    </div>
+                    <!-- Swapped bg-dark-tertiary/50 to bg-light-tertiary -->
+                    <div class="p-5 bg-light-tertiary rounded-lg">
+                        <!-- Text color adjustment for light theme -->
+                        <p class="text-sm font-semibold uppercase text-gray-600">Key Commodity Loss Rate (Fruits)</p>
+                        <p class="text-3xl font-black accent-color">6.02-15.05%</p>
+                        <p class="text-sm text-gray-600">Due to perishability and lack of cold chain integrity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. OPERATIONAL & TECH GAP -->
+    <!-- Swapped bg-dark-primary to bg-light-primary -->
+    <section id="techgap" class="py-20 md:py-32 px-8 bg-light-primary">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <h3 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900">THE TECHNOLOGY & KNOWLEDGE VACUUM</h3>
+            <!-- Text color adjustment for light theme -->
+            <p class="text-xl text-gray-700 max-w-4xl mx-auto">
+                Small-scale holdings (avg. 1.08ha) and capital barriers prevent adoption of critical precision tools, leaving farmers vulnerable.
+            </p>
+
+            <!-- Comparison Infographic Cards -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1: Mechanization - Swapped bg-dark-secondary to bg-light-secondary -->
+                <div class="p-6 bg-light-secondary rounded-xl data-card space-y-3">
+                    <svg class="w-10 h-10 accent-color" fill="none" viewBox="0 0 24 24" stroke="currentColor"><!-- Icon: Tractor -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6M9 20h6M9 14h6m-3-6h.01M12 10a2 2 0 100-4 2 2 0 000 4z"/>
+                    </svg>
+                    <!-- Text color adjustment for light theme -->
+                    <p class="text-sm font-semibold uppercase text-gray-600">Mechanization Rate</p>
+                    <p class="text-4xl font-black accent-color">47%</p>
+                    <p class="text-xs text-gray-600">Vs 75% Brazil, 60% China. Perpetuating inefficiency.</p>
+                </div>
+                <!-- Card 2: Precision Ag - Swapped bg-dark-secondary to bg-light-secondary -->
+                <div class="p-6 bg-light-secondary rounded-xl data-card space-y-3">
+                    <svg class="w-10 h-10 accent-color" fill="none" viewBox="0 0 24 24" stroke="currentColor"><!-- Icon: Satellite/GPS -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.55-4.55a1.5 1.5 0 012.12 0l1.32 1.32a1.5 1.5 0 010 2.12L18 13.5M9 6v12M15 6v12M12 6v12m-3-6h6M6 12h12m-6 3l.01-.01M12 9l.01-.01"/>
+                    </svg>
+                    <!-- Text color adjustment for light theme -->
+                    <p class="text-sm font-semibold uppercase text-gray-600">Precision Tech Adoption</p>
+                    <p class="text-4xl font-black accent-color">&lt;10%</p>
+                    <p class="text-xs text-gray-600">Vs 60%+ USA, 50%+ Japan. Yield loss of 20-40% remains.</p>
+                </div>
+                <!-- Card 3: Advisory Gap - Swapped bg-dark-secondary to bg-light-secondary -->
+                <div class="p-6 bg-light-secondary rounded-xl data-card space-y-3">
+                    <svg class="w-10 h-10 accent-color" fill="none" viewBox="0 0 24 24" stroke="currentColor"><!-- Icon: Worker -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                    <!-- Text color adjustment for light theme -->
+                    <p class="text-sm font-semibold uppercase text-gray-600">Extension Worker Ratio</p>
+                    <p class="text-4xl font-black accent-color">1:1,162</p>
+                    <p class="text-xs text-gray-600">Vs recommended 1:400. 70% of farmers rely on input dealers.</p>
+                </div>
+                <!-- Card 4: Weather Blindness - Swapped bg-dark-secondary to bg-light-secondary -->
+                <div class="p-6 bg-light-secondary rounded-xl data-card space-y-3">
+                    <svg class="w-10 h-10 accent-color" fill="none" viewBox="0 0 24 24" stroke="currentColor"><!-- Icon: Cloud -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                    <!-- Text color adjustment for light theme -->
+                    <p class="text-sm font-semibold uppercase text-gray-600">Forecasting Deficit</p>
+                    <p class="text-4xl font-black accent-color">12km</p>
+                    <p class="text-xs text-gray-600">Resolution (IMD). Useless for 2-acre plot decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. STRATEGIC IMPERATIVE: THE SOLUTION FRAMEWORK -->
+    <!-- Swapped bg-dark-secondary to bg-light-secondary -->
+    <section id="imperative" class="py-20 md:py-32 px-8 bg-light-secondary">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <h3 class="text-4xl md:text-5xl font-extrabold text-center accent-color">THE STRATEGIC IMPERATIVE</h3>
+            <!-- Text color adjustment for light theme -->
+            <p class="text-xl text-gray-700 max-w-4xl mx-auto">
+                An integrated digital-physical ecosystem that bridges information, logistics, and finance to transform smallholder agriculture.
+            </p>
+
+            <!-- Solution Blueprint / Timeline -->
+            <div class="relative pt-10">
+                <!-- Vertical Line - Swapped bg-dark-tertiary to bg-light-tertiary -->
+                <div class="absolute inset-y-0 left-1/2 w-1 bg-light-tertiary transform -translate-x-1/2 hidden md:block"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+                    
+                    <!-- Item 1: Democratize Access (Left) -->
+                    <div class="md:text-right space-y-3 p-4 md:p-0 relative">
+                        <div class="w-4 h-4 rounded-full bg-accent absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-2 hidden md:block"></div>
+                        <h4 class="text-2xl font-bold accent-color">1. Democratize Precision Tech</h4>
+                        <!-- Text color adjustment for light theme -->
+                        <p class="text-gray-700">
+                            Shift from capital-intensive *ownership* to *access* via cooperative machinery banks and FPOs. Address the high cost barrier.
+                        </p>
+                    </div>
+
+                    <!-- Item 2: Hyper-local Intelligence (Right) -->
+                    <div class="space-y-3 p-4 md:p-0 relative md:col-start-2">
+                        <div class="w-4 h-4 rounded-full bg-accent absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-2 hidden md:block"></div>
+                        <h4 class="text-2xl font-bold accent-color">2. Hyper-Local, Actionable Data</h4>
+                        <!-- Text color adjustment for light theme -->
+                        <p class="text-gray-700">
+                            Move beyond useless 12km district forecasts to real-time, field-scale soil moisture and micro-climate advisories.
+                        </p>
+                    </div>
+
+                    <!-- Item 3: Integrated Logistics (Left) -->
+                    <div class="md:text-right space-y-3 p-4 md:p-0 relative md:col-start-1">
+                        <div class="w-4 h-4 rounded-full bg-accent absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-2 hidden md:block"></div>
+                        <h4 class="text-2xl font-bold accent-color">3. End Value Extraction</h4>
+                        <!-- Text color adjustment for light theme -->
+                        <p class="text-gray-700">
+                            Develop platforms bridging farmers directly to consumers, backed by collective storage and transport logistics to cut middlemen.
+                        </p>
+                    </div>
+
+                    <!-- Item 4: Global Blueprint (Right) -->
+                    <div class="space-y-3 p-4 md:p-0 relative md:col-start-2">
+                        <div class="w-4 h-4 rounded-full bg-accent absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-2 hidden md:block"></div>
+                        <h4 class="text-2xl font-bold accent-color">4. Replicate Proven Success</h4>
+                        <!-- Text color adjustment for light theme -->
+                        <p class="text-gray-700">
+                            Validate strategy on the **Brazilian MAIS program**, which achieved <strong class="font-semibold">204% income increase</strong> and <strong class="font-semibold">7:1 ROI</strong> among family farmers.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. THE OPPORTUNITY & ROI -->
+    <!-- Swapped bg-dark-primary to bg-light-primary -->
+    <section id="opportunity" class="py-20 md:py-32 px-8 bg-light-primary">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <h3 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900"><span class="accent-color">THE RETURN:</span> Annual Impact Projection</h3>
+            
+            <!-- Investment & Return Data Block -->
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Investment Side - Swapped bg-dark-secondary to bg-light-secondary -->
+                <div class="p-8 bg-light-secondary rounded-xl data-card space-y-6">
+                    <!-- Swapped dark border to light border -->
+                    <p class="text-2xl font-bold text-gray-900 uppercase tracking-wider border-b border-light-tertiary pb-3">5-Year Investment Horizon</p>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center text-lg">
+                            <!-- Text color adjustment for light theme -->
+                            <span class="text-gray-600">Technology Infrastructure</span>
+                            <span class="font-black accent-color">₹15,000 Cr</span>
+                        </div>
+                        <div class="flex justify-between items-center text-lg">
+                            <!-- Text color adjustment for light theme -->
+                            <span class="text-gray-600">Physical Logistics/Cold Chain</span>
+                            <span class="font-black accent-color">₹75,000 Cr</span>
+                        </div>
+                        <div class="flex justify-between items-center text-lg">
+                            <!-- Text color adjustment for light theme -->
+                            <span class="text-gray-600">Capacity Building/Training</span>
+                            <span class="font-black accent-color">₹10,000 Cr</span>
+                        </div>
+                    </div>
+                    <!-- Swapped dark border to light border -->
+                    <div class="pt-4 border-t-2 border-light-tertiary">
+                        <div class="flex justify-between items-center text-2xl font-black text-gray-900">
+                            <span>TOTAL INVESTMENT</span>
+                            <span class="accent-color">₹1,00,000 Cr</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projected Returns Side - Swapped bg-dark-secondary to bg-light-secondary -->
+                <div class="p-8 bg-light-secondary rounded-xl data-card space-y-6">
+                    <!-- Swapped dark border to light border -->
+                    <p class="text-2xl font-bold text-gray-900 uppercase tracking-wider border-b border-light-tertiary pb-3">Projected Annual Benefits (Year 5)</p>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center text-lg">
+                            <!-- Text color adjustment for light theme -->
+                            <span class="text-gray-600">Post-Harvest Loss Reduction (50%)</span>
+                            <span class="font-black accent-color">₹45,000 Cr</span>
+                        </div>
+                        <div class="flex justify-between items-center text-lg">
+                            <!-- Text color adjustment for light theme -->
+                            <span class="text-gray-600">Yield Improvement (15-20%)</span>
+                            <span class="font-black accent-color">₹35,000 Cr</span>
+                        </div>
+                        <div class="flex justify-between items-center text-lg">
+                            <!-- Text color adjustment for light theme -->
+                            <span class="text-gray-600">Market Efficiency Gains</span>
+                            <span class="font-black accent-color">₹25,000 Cr</span>
+                        </div>
+                    </div>
+                    <!-- Accent border remains strong -->
+                    <div class="pt-4 border-t-2 border-accent">
+                        <div class="flex justify-between items-center text-3xl font-black text-gray-900">
+                            <span>NET ANNUAL BENEFIT</span>
+                            <span class="accent-color">₹1,25,000 Cr</span>
+                        </div>
+                    </div>
+                    <!-- Text color adjustment for light theme -->
+                    <div class="text-center mt-6 p-3 bg-accent/20 rounded-lg">
+                        <p class="text-xl font-bold text-gray-900">Benefit-Cost Ratio: <span class="accent-color">1.25 : 1</span></p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Closing CTA -->
+            <div class="text-center pt-16">
+                <h3 class="text-5xl font-extrabold mb-4 text-gray-900">The Time to Act is <span class="accent-color">NOW.</span></h3>
+                <!-- Text color adjustment for light theme -->
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    The data, technology, and global precedents exist. What remains is the coordinated investment to deploy them at the scale this crisis demands.
+                </p>
+                <!-- Text color is now dark on accent background -->
+                <a href="https://kiwi25.odoo.com/" class="inline-block mt-8 px-10 py-4 bg-accent text-dark-primary font-bold text-lg rounded-full shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
+                    Connect with aether think.
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer - Swapped bg-dark-primary to bg-light-primary -->
+    <footer class="py-6 border-t border-gray-200 text-center text-sm text-gray-500 bg-light-primary">
+        &copy; 2025 aether think. Project KiWI
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const FONT_COLOR = '#073B4C';
-            const GRID_COLOR = '#d1d5db';
-            
-            Chart.defaults.color = FONT_COLOR;
-            Chart.defaults.font.family = "'Inter', sans-serif";
-
-            function wrapLabel(label, maxWidth) {
-                if (label.length <= maxWidth) {
-                    return label;
-                }
-                const words = label.split(' ');
-                let lines = [];
-                let currentLine = '';
-                words.forEach(word => {
-                    if ((currentLine + ' ' + word).trim().length > maxWidth && currentLine.length > 0) {
-                        lines.push(currentLine);
-                        currentLine = word;
-                    } else {
-                        currentLine = (currentLine + ' ' + word).trim();
-                    }
-                });
-                if (currentLine.length > 0) {
-                    lines.push(currentLine);
-                }
-                return lines;
-            }
-            
-            const tooltipTitleCallback = {
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            title: function(tooltipItems) {
-                                const item = tooltipItems[0];
-                                let label = item.chart.data.labels[item.dataIndex];
-                                if (Array.isArray(label)) {
-                                  return label.join(' ');
-                                } else {
-                                  return label;
-                                }
-                            }
-                        }
-                    },
-                    legend: {
-                        position: 'bottom',
-                    }
-                }
-            };
-
-            const COLORS = {
-                red: '#FF6B6B',
-                yellow: '#FFD166',
-                green: '#06D6A0',
-                blue: '#118AB2',
-                darkBlue: '#073B4C'
-            };
-
-            new Chart(document.getElementById('debtSourcesChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Institutional Loans (Banks, Co-ops)', 'Non-Institutional (Moneylenders)', 'Input Dealers', 'Other'],
-                    datasets: [{
-                        label: 'Debt Source',
-                        data: [60, 28, 10, 2],
-                        backgroundColor: [COLORS.blue, COLORS.red, COLORS.yellow, COLORS.green],
-                        borderColor: '#ffffff',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    ...tooltipTitleCallback
-                }
-            });
-            
-            new Chart(document.getElementById('seedWastageChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['Wheat', 'Rice', 'Maize'],
-                    datasets: [{
-                        label: 'Traditional Sowing',
-                        data: [22, 18, 25],
-                        backgroundColor: COLORS.red,
-                        borderRadius: 4,
-                    }, {
-                        label: 'Precision Sowing',
-                        data: [5, 4, 6],
-                        backgroundColor: COLORS.green,
-                        borderRadius: 4,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Seed Wastage (%)' },
-                            grid: { color: GRID_COLOR }
-                        },
-                        x: { grid: { display: false } }
-                    },
-                    ...tooltipTitleCallback
-                }
-            });
-            
-            new Chart(document.getElementById('techAdoptionBarriersChart'), {
-                type: 'pie',
-                data: {
-                    labels: ['High Cost of Machinery', 'Lack of Knowledge & Skills', 'Small Land Holdings', 'Poor Service Access'],
-                    datasets: [{
-                        label: 'Barrier',
-                        data: [55, 25, 15, 5],
-                        backgroundColor: [COLORS.red, COLORS.yellow, COLORS.blue, COLORS.darkBlue],
-                        borderColor: '#ffffff',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    ...tooltipTitleCallback
-                }
-            });
-
-            new Chart(document.getElementById('weatherLossChart'), {
-                type: 'line',
-                data: {
-                    labels: ['2020', '2021', '2022', '2023', '2024'],
-                    datasets: [{
-                        label: 'Estimated Crop Value Loss (₹ Crores)',
-                        data: [60000, 75000, 70000, 90000, 85000],
-                        borderColor: COLORS.red,
-                        backgroundColor: 'rgba(255, 107, 107, 0.2)',
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Loss in ₹ Crores' },
-                            grid: { color: GRID_COLOR }
-                        },
-                        x: { grid: { display: false } }
-                    },
-                    ...tooltipTitleCallback
-                }
-            });
-            
-            new Chart(document.getElementById('infoSourcesChart'), {
-                type: 'bar',
-                data: {
-                    labels: [
-                        wrapLabel('Progressive/Fellow Farmers', 16),
-                        wrapLabel('Agri-Input Dealers', 16),
-                        wrapLabel('Government Extension Services', 16),
-                        wrapLabel('Digital Platforms / Apps', 16)
-                    ],
-                    datasets: [{
-                        label: '% of Farmers Citing as Primary Source',
-                        data: [45, 25, 15, 5],
-                        backgroundColor: [COLORS.blue, COLORS.yellow, COLORS.green, COLORS.darkBlue],
-                        borderRadius: 4,
-                        barPercentage: 0.6,
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            title: { display: true, text: '% of Farmers' },
-                            grid: { color: GRID_COLOR }
-                        },
-                        y: { grid: { display: false } }
-                    },
-                    ...tooltipTitleCallback
-                }
-            });
-            
-            new Chart(document.getElementById('priceSpreadChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['Onion', 'Potato', 'Tomato', 'Wheat'],
-                    datasets: [{
-                        label: 'Farmer\'s Share (%)',
-                        data: [32, 41, 29, 45],
-                        backgroundColor: COLORS.green,
-                        borderRadius: 4,
-                    },
-                    {
-                        label: 'Intermediary & Logistics Share (%)',
-                        data: [68, 59, 71, 55],
-                        backgroundColor: COLORS.red,
-                        borderRadius: 4,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { stacked: true, grid: { display: false } },
-                        y: { stacked: true, title: { display: true, text: 'Share in Consumer Rupee (%)' }, grid: { color: GRID_COLOR } }
-                    },
-                    ...tooltipTitleCallback
-                }
-            });
-        });
-    </script>
 </body>
 </html>
